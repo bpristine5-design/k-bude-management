@@ -2,6 +2,27 @@
 <html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fffaf7"><title>K-Bude Management</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#e9e4e0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#29282d}main{max-width:430px;min-height:100vh;margin:auto;background:#fffaf7;padding:20px 16px 95px}.top{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:900;font-size:21px}.plus{border:0;border-radius:50%;width:40px;height:40px;background:#28282c;color:white;font-size:24px}.hero{margin-top:18px;background:linear-gradient(135deg,#f6bccb,#f4e1e5);padding:20px;border-radius:24px}.hero h1{margin:0 0 5px;font-size:27px}.hero p{margin:0;color:#6d6870;font-size:12px}.section{font-size:18px;font-weight:800;margin:22px 0 10px}.card{background:white;border:1px solid #ece5e1;border-radius:18px;padding:13px;margin:9px 0;box-shadow:0 5px 14px #43251a08}.event{display:flex;gap:11px;align-items:center}.date{width:52px;height:52px;border-radius:14px;background:#f6e8ec;display:grid;place-items:center;font-size:18px;font-weight:800}.event h3{font-size:13px;margin:0 0 4px}.meta{font-size:10px;color:#77727a;line-height:1.5}.badge{display:inline-block;background:#8e769e;color:white;border-radius:7px;padding:3px 6px;font-size:8px;font-weight:800}.artist{display:flex;align-items:center;gap:12px;padding:12px;border-radius:17px;margin:8px 0}.avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:900}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);background:#fffaf7f5;backdrop-filter:blur(15px);border-top:1px solid #ece5e1;display:flex;justify-content:space-around;padding:9px 2px calc(8px + env(safe-area-inset-bottom))}.nav button{border:0;background:none;color:#777;font-size:9px}.nav button.on{color:#ed6684;font-weight:800}.nav i{display:block;font-style:normal;font-size:18px;margin-bottom:2px}.row{display:flex;justify-content:space-between;border-bottom:1px solid #eee7e3;padding:10px 0;font-size:12px}.screen{display:none}.screen.active{display:block}.back{border:1px solid #eee;background:white;color:#222;border-radius:50%;width:38px;height:38px;font-size:20px}
+
+/* calendar fix */
+.month{display:flex;align-items:center;justify-content:space-between;margin:18px 0 12px;padding:0 2px}
+.calendar{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:4px!important;background:#f3efec;border:1px solid #ece5e1;border-radius:18px;padding:6px!important;overflow:hidden}
+.dow{display:flex;align-items:center;justify-content:center;height:28px;font-size:9px;font-weight:800;color:#8b858b}
+.day{min-width:0!important;min-height:72px!important;background:#fffaf7;border-radius:10px;padding:6px 4px!important;overflow:hidden;cursor:pointer;display:block!important}
+.day>b{display:block;font-size:11px;line-height:15px;margin-bottom:3px}
+.day.has{background:#fff}
+.mini{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:7px;line-height:14px;border-radius:5px;padding:0 4px;margin:2px 0;background:#d8efda;color:#38533d;font-weight:700}
+.mini.shared{background:#ded0ea;color:#604b6e}
+.day:nth-child(7n+1) .mini{background:#f7d0da;color:#7b3f4c}
+.day:nth-child(7n+2) .mini{background:#d7efda;color:#38533d}
+.day:nth-child(7n+3) .mini{background:#f3e4b8;color:#6b5821}
+.day:nth-child(7n+4) .mini{background:#f6d5bb;color:#704827}
+.day:nth-child(7n+5) .mini{background:#e0d2ef;color:#5d4b70}
+@media(max-width:380px){
+ .day{min-height:66px!important;padding:5px 3px!important}
+ .mini{font-size:6.5px;padding:0 3px}
+ .dow{font-size:8px}
+}
+a{color:#756083}
 </style></head><body><main id="app"></main>
 <script>
 const events=[
