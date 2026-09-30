@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fffaf7"><title>K-Bude Management</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e9e4e0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial;color:#29282d}main{max-width:430px;min-height:100vh;margin:auto;background:#fffaf7;padding:20px 16px 95px}.top{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:900;font-size:21px}.plus{border:0;border-radius:50%;width:40px;height:40px;background:#28282c;color:white;font-size:24px}.hero{margin-top:18px;background:linear-gradient(135deg,#f6bccb,#f4e1e5);padding:20px;border-radius:24px}.hero h1{margin:0 0 5px;font-size:27px}.hero p{margin:0;color:#6d6870;font-size:12px}.section{font-size:18px;font-weight:800;margin:22px 0 10px}.card{background:white;border:1px solid #ece5e1;border-radius:18px;padding:13px;margin:9px 0;box-shadow:0 5px 14px #43251a08}.event{display:flex;gap:11px;align-items:center}.date{width:52px;height:52px;border-radius:14px;background:#f6e8ec;display:grid;place-items:center;font-size:18px;font-weight:800}.event h3{font-size:13px;margin:0 0 4px}.meta{font-size:10px;color:#77727a;line-height:1.5}.badge{display:inline-block;background:#8e769e;color:white;border-radius:7px;padding:3px 6px;font-size:8px;font-weight:800}.artist{display:flex;align-items:center;gap:12px;padding:12px;border-radius:17px;margin:8px 0}.avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:900}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);background:#fffaf7f5;backdrop-filter:blur(15px);border-top:1px solid #ece5e1;display:flex;justify-content:space-around;padding:9px 2px calc(8px + env(safe-area-inset-bottom))}.nav button{border:0;background:none;color:#777;font-size:9px}.nav button.on{color:#ed6684;font-weight:800}.nav i{display:block;font-style:normal;font-size:18px;margin-bottom:2px}.row{display:flex;justify-content:space-between;border-bottom:1px solid #eee7e3;padding:10px 0;font-size:12px}.screen{display:none}.screen.active{display:block}.back{border:1px solid #eee;background:white;color:#222;border-radius:50%;width:38px;height:38px;font-size:20px}
+</style></head><body><main id="app"></main>
+<script>
+const events=[
+{id:"k1",date:"2026-10-01",time:"20:30",artist:"Kaan Çoban (Çobi)",title:"Kaan Çobi Stand-up",venue:"Rene Lokal",city:"İzmir",sales:"Bubilet",source:"https://www.bubilet.com.tr/izmir/etkinlik/kaan-cobi-stand-up"},
+{id:"y1",date:"2026-09-05",time:"20:00",artist:"Yaver Coruk + Alpay Kaya",title:"Yaver Coruk & Alpay Kaya Stand Up Gösterisi",venue:"ArtCorner Sahne / Cassaba Modern",city:"Eskişehir",sales:"Bubilet",badge:"ORTAK OYUN"},
+{id:"y2",date:"2026-10-18",time:"20:00",artist:"Yaver Coruk",title:"Yaver Coruk - III. Ankara Kahkaha Festivali",venue:"Quito Sahne",city:"Ankara",sales:"Bubilet"},
+{id:"y3",date:"2026-10-20",time:"20:00",artist:"Yaver Coruk",title:"Yaver Coruk ''Muazzam''",venue:"Nazilli Belediyesi Mehmet Yüzügüler Sahnesi",city:"Aydın",sales:"Bubilet",source:"https://www.bubilet.com.tr/aydin/etkinlik/yaver-coruk-stand-up-gosterisi-"},
+{id:"b1",date:"2026-10-25",time:"20:30",artist:"Berkant Priştine",title:"Berkant Priştine Stand Up",venue:"Syren Roof Mersin",city:"Mersin",sales:"Bubilet",price:"470 TL",source:"https://www.bubilet.com.tr/mersin/etkinlik/berkant-pristine-stand-up"},
+{id:"y4",date:"2026-11-10",time:"20:00",artist:"Yaver Coruk",title:"Yaver Coruk ''Muazzam''",venue:"Yozgat Kültür Merkezi",city:"Yozgat",sales:"Bubilet",source:"https://www.bubilet.com.tr/yozgat/etkinlik/yaver-coruk-stand-up-gosterisi-"},
+{id:"y5",date:"2026-11-11",time:"20:00",artist:"Yaver Coruk",title:"Yaver Coruk ''Muazzam''",venue:"Sivas Muhsin Yazıcıoğlu Kültür Merkezi",city:"Sivas",sales:"Bubilet",source:"https://www.bubilet.com.tr/sivas/etkinlik/yaver-coruk-stand-up-gosterisi-"},
+{id:"y6",date:"2026-11-13",time:"20:00",artist:"Yaver Coruk",title:"Yaver Coruk ''Muazzam''",venue:"Urfa City AVM - Mehmet Akif İnan Konferans Salonu",city:"Şanlıurfa",sales:"Bubilet",source:"https://www.bubilet.com.tr/sanliurfa/etkinlik/yaver-coruk-stand-up-gosterisi-"},
+{id:"y7",date:"2026-11-14",time:"20:00",artist:"Yaver Coruk",title:"Yaver Coruk ''Muazzam''",venue:"Elazığ Belediyesi Bünyamin Eroğlu Kültür Merkezi",city:"Elazığ",sales:"Bubilet",price:"490 TL",source:"https://www.bubilet.com.tr/elazig/etkinlik/yaver-coruk-stand-up-gosterisi-/seans/291505"},
+{id:"y8",date:"2026-11-16",time:"20:00",artist:"Yaver Coruk",title:"Yaver Coruk ''Muazzam''",venue:"Kapadokya Kültür Merkezi",city:"Nevşehir",sales:"Bubilet",source:"https://www.bubilet.com.tr/nevsehir/etkinlik/yaver-coruk-stand-up-gosterisi-"},
+{id:"y9",date:"2026-11-17",time:"20:00",artist:"Yaver Coruk",title:"Yaver Coruk ''Muazzam''",venue:"Aksaray Somuncu Baba Kültür Merkezi",city:"Aksaray",sales:"Bubilet",source:"https://www.bubilet.com.tr/aksaray/etkinlik/yaver-coruk-stand-up-gosterisi-"}
+];
+const artists=[
+["Berkant Priştine","#f3b8c8"],["Yaver Coruk","#cde6c3"],["Alpay Kaya","#e7d59c"],["Kaan Çoban (Çobi)","#f3c6a5"],["Kemal Bahadır","#d8c6ef"]
+];
+let current=new Date(2026,9,1), screen="calendar";
+const app=document.getElementById("app");
+const monthNames=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+const dayNames=["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
+function header(t="K-Bude Management",add=true){return `<div class="top"><div class="logo">♛ ${t}</div>${add?'<button class="plus" onclick="newEvent()">+</button>':''}</div>`}
+function nav(){return `<div class="nav">
+<button class="${screen==="calendar"?"on":""}" onclick="go('calendar')"><i>▦</i>Takvim</button>
+<button class="${screen==="artists"?"on":""}" onclick="go('artists')"><i>♟</i>Komedyenler</button>
+<button class="${screen==="events"?"on":""}" onclick="go('events')"><i>☷</i>Etkinlikler</button>
+<button class="${screen==="stats"?"on":""}" onclick="go('stats')"><i>▥</i>İstatistikler</button>
+<button class="${screen==="finance"?"on":""}" onclick="go('finance')"><i>₺</i>Finans</button></div>`}
+function card(e){return `<div class="card event" onclick="detail('${e.id}')"><div class="date"><b>${new Date(e.date+"T12:00").getDate()}</b><small>${monthNames[new Date(e.date+"T12:00").getMonth()].slice(0,3)}</small></div><div style="flex:1"><h3>${e.artist} ${e.badge?`<span class="badge">${e.badge}</span>`:""}</h3><div class="meta">${e.title}<br>⌖ ${e.venue} · ${e.city} · ${e.time}</div></div><b>›</b></div>`}
+function calendar(){
+ let y=current.getFullYear(),m=current.getMonth(),first=new Date(y,m,1),days=new Date(y,m+1,0).getDate(),offset=(first.getDay()+6)%7;
+ let s=header()+`<div class="month"><button class="back" style="width:36px;height:36px" onclick="prevMonth()">‹</button><div style="text-align:center"><b style="font-size:20px">${monthNames[m]} ${y}</b><div class="meta">Aylar arasında ileri / geri gidebilirsin</div></div><button class="back" style="width:36px;height:36px" onclick="nextMonth()">›</button></div>`;
+ s+=`<div class="calendar">`;dayNames.forEach(d=>s+=`<div class="dow">${d}</div>`);
+ for(let i=0;i<offset;i++)s+=`<div class="day"></div>`;
+ for(let d=1;d<=days;d++){
+   let ds=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`, es=events.filter(e=>e.date===ds);
+   s+=`<div class="day ${es.length?"has":""}" onclick="${es.length?`detail('${es[0].id}')`:""}"><b>${d}</b>${es.map(e=>`<div class="mini ${e.badge?"shared":""}" title="${e.artist}">${e.artist.replace("Kaan Çoban (Çobi)","Kaan Çobi").replace(" + "," + ")}</div>`).join("")}</div>`;
+ }
+ s+=`</div><div class="section">${monthNames[m]} ${y} etkinlikleri</div>`;
+ let monthEvents=events.filter(e=>{let d=new Date(e.date+"T12:00");return d.getFullYear()===y&&d.getMonth()===m}).sort((a,b)=>a.date.localeCompare(b.date));
+ s+=monthEvents.length?monthEvents.map(card).join(""):`<div class="card"><div class="meta">Bu ay için Bubilet'te bulunan etkinlik kaydı yok.</div></div>`;
+ return s;
+}
+function artistsPage(){return header()+`<div class="section">Komedyenler</div>`+artists.map(a=>`<div class="artist" style="background:${a[1]}66"><div class="avatar" style="background:${a[1]}">${a[0].split(" ").map(x=>x[0]).slice(0,2).join("")}</div><div><b>${a[0]}</b><div class="meta">Instagram takipçisi: güncellenecek</div><div class="meta">${events.filter(e=>e.artist.includes(a[0].replace(" (Çobi)",""))).length} etkinlik</div></div></div>`).join("")}
+function eventsPage(){return header()+`<div class="section">Etkinlikler</div>`+events.sort((a,b)=>a.date.localeCompare(b.date)).map(card).join("")}
+function statsPage(){return header()+`<div class="section">İstatistikler</div><div class="card"><div class="row"><span>Takvimdeki etkinlik</span><b>${events.length}</b></div><div class="row"><span>Şehir</span><b>${new Set(events.map(e=>e.city)).size}</b></div><div class="row"><span>Satılan bilet</span><b>Manuel</b></div><div class="row"><span>Toplam gelir</span><b>Manuel</b></div></div>`}
+function financePage(){return header("Finans")+`<div class="section">Finans & Hesaplama</div><div class="card"><div class="row"><span>KDV</span><b>%10</b></div><div class="row"><span>Gelir Vergisi</span><b>%15 · düzenlenebilir</b></div><div class="row"><span>Menajerlik Payı</span><b>%20</b></div></div>`}
+function detail(id){let e=events.find(x=>x.id===id);app.innerHTML=`<button class="back" onclick="go('calendar')">‹</button><div class="hero"><h1>${e.artist}</h1><p>${e.title}</p></div><div class="card"><div class="row"><span>Tarih</span><b>${new Date(e.date+"T12:00").toLocaleDateString("tr-TR")}</b></div><div class="row"><span>Saat</span><b>${e.time}</b></div><div class="row"><span>Mekan</span><b>${e.venue}</b></div><div class="row"><span>Şehir</span><b>${e.city}</b></div><div class="row"><span>Satış</span><b>${e.sales}</b></div>${e.price?`<div class="row"><span>Bilet fiyatı</span><b>${e.price}</b></div>`:""}${e.badge?`<p><span class="badge">${e.badge}</span></p>`:""}${e.source?`<p><a href="${e.source}" target="_blank">Bubilet etkinliğini aç ↗</a></p>`:""}</div><div class="section">Menajer Notları</div><div class="card">Hasret'in kaşe fiyatı ve operasyon notları burada tutulacak.</div><div class="section">Finans & Satış</div><div class="card"><div class="row"><span>Toplam kazanç</span><b>—</b></div><div class="row"><span>Giderler</span><b>—</b></div><div class="row"><span>Sanatçıya ödenecek</span><b>—</b></div></div>`}
+function prevMonth(){current.setMonth(current.getMonth()-1);render()}
+function nextMonth(){current.setMonth(current.getMonth()+1);render()}
+function newEvent(){alert("Yeni etkinlik ekleme ekranı: komedyen → tarih/saat → şehir → mekan → satış türü → notlar.")}
+function go(x){screen=x;render()}
+function render(){let body=screen==="calendar"?calendar():screen==="artists"?artistsPage():screen==="events"?eventsPage():screen==="stats"?statsPage():financePage();app.innerHTML=body+nav()}
+render();
+</script></body></html>
